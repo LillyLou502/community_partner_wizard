@@ -34,14 +34,14 @@ class CommunityPartner():
             search = input("Would you like to search by organization name or primary social issue? Choose: org or issue  ")
             if org:
                 org = input("Organization Name:  ")
+                return CP_dict({}.format(org))
             if issue:
                 primary_issue = input("Primary Social Issue " + 
                 "(Options: Education, Health/Wellness, Financial Empowerment, Environment, Social Services:  ")
+                return CP_dict({}.format(primary_issue))
             self.read(org, contact, phone, email, web, primary_issue, special_issue)
         if command == "update":
             update_org = input("What organization would you like to update?  ")
-            if update_org != org:
-                print("That organization is not in the database. Select 'create' to add it.")
             if update_org == org:
                 org = input("Organization Name:  ")    
                 contact = input("Contact Name:  ")
@@ -51,9 +51,17 @@ class CommunityPartner():
                 primary_issue = input("What is your Primary Social Issue " + 
                 "(Options: Education, Health/Wellness, Financial Empowerment, Environment, Social Services:  ")
                 special_issue = input("What special issue does your org address?  ")
+            if update_org != org:
+                print("That organization is not in the database. Select 'create' to add it.")
+                return command()
             self.update(org, contact, phone, email, web, primary_issue, special_issue)
         if command == "delete":
             org = input("Organization Name:  ")
+            print("Do you want to delete {} from the community partner database? yes or no:  ".format(org)):
+            if yes:
+                del self.org
+            else:
+                return command()
             self.delete(org)
 
     def create(self, org, contact, phone, email, web, primary_issue, special_issue):
