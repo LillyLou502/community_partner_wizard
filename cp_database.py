@@ -15,8 +15,7 @@ class CommunityPartner():
                 "Phone Number": self.phone,
                 "Email Address": self.email,
                 "Web Address": self.web,
-                "Primary Issue": self.primary_issue,
-                "Special Issue": self.special_issue}
+                "Primary Issue": self.primary_issue}
 
     def command(self):
         command = input("What do you want to do in the Community Partner Database? Choose: create, read, update, or delete:   ")
@@ -27,9 +26,8 @@ class CommunityPartner():
             email = input("Contact Email:  ")
             web = input("Org Web Address:  ")
             primary_issue = input("What is your Primary Social Issue " + 
-            "(Options: Education, Health/Wellness, Financial Empowerment, Environment, Social Services:  ")
-            special_issue = input("What special issue does your org address?  ")
-            self.create(org, contact, phone, email, web, primary_issue, special_issue)
+            "(Options: Education, Health/Wellness, Environment, Social Services:  ")
+            self.create(org, contact, phone, email, web, primary_issue)
         if command == "read":
             search = input("Would you like to search by organization name or primary social issue? Choose: org or issue  ")
             if org:
@@ -37,24 +35,26 @@ class CommunityPartner():
                 return CP_dict({}.format(org))
             if issue:
                 primary_issue = input("Primary Social Issue " + 
-                "(Options: Education, Health/Wellness, Financial Empowerment, Environment, Social Services:  ")
-                return CP_dict({}.format(primary_issue))
-            self.read(org, contact, phone, email, web, primary_issue, special_issue)
+                "(Options: Education, Health/Wellness, Environment, Social Services:  ")
+                return CP_dict({}.format(primary_issue)) # need this to be sorted by issue and return all records with the selected issue
+            self.read(org, contact, phone, email, web, primary_issue)
         if command == "update":
-            update_org = input("What organization would you like to update?  ")
-            if update_org == org:
+            update_org = input("What organization information would you like to update?  ")
+            CP_dict.get("Organization": update_org)
+            return CP_dict(org, contact, phone, email, web, primary_issue, special_issue)
                 org = input("Organization Name:  ")    
                 contact = input("Contact Name:  ")
                 phone = input("Contact Phone:  ")
                 email = input("Contact Email:  ")
                 web = input("Org Web Address:  ")
                 primary_issue = input("What is your Primary Social Issue " + 
-                "(Options: Education, Health/Wellness, Financial Empowerment, Environment, Social Services:  ")
-                special_issue = input("What special issue does your org address?  ")
+                "(Options: Education, Health/Wellness, Environment, Social Services:  ")
+            if update_org == org: # not sure how to find an org name
+                
             if update_org != org:
                 print("That organization is not in the database. Select 'create' to add it.")
                 return command()
-            self.update(org, contact, phone, email, web, primary_issue, special_issue)
+            self.update(org, contact, phone, email, web, primary_issue)
         if command == "delete":
             org = input("Organization Name:  ")
             print("Do you want to delete {} from the community partner database? yes or no:  ".format(org)):
@@ -64,7 +64,7 @@ class CommunityPartner():
                 return command()
             self.delete(org)
 
-    def create(self, org, contact, phone, email, web, primary_issue, special_issue):
+    def create(self, org, contact, phone, email, web, primary_issue):
         # allow user to add to CP
         self.org = org
         self.contact = contact
@@ -72,7 +72,6 @@ class CommunityPartner():
         self.email = email
         self.web = web
         self.primary_issue = primary_issue
-        self.special_issue = special_issue
 
     def read(self, org, primary_issue):
         # allow user to look up a CP by org or issue
@@ -80,7 +79,7 @@ class CommunityPartner():
         self.org = org
         self.primary_issue = primary_issue
 
-    def update(self, org, contact, phone, email, web, primary_issue, special_issue):
+    def update(self, org, contact, phone, email, web, primary_issue):
         # allow user to change info in CP
         # how do I make sure this updates instead of adding new?
         self.org = org
@@ -89,7 +88,6 @@ class CommunityPartner():
         self.email = email
         self.web = web
         self.primary_issue = primary_issue
-        self.special_issue = special_issue
 
     def delete(self, org):
         # allow user to delete CP
