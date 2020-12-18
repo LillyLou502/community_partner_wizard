@@ -23,29 +23,43 @@ database = [CommunityPartner("Metro United Way", "Theresa Reno-Weber", "502-550-
             CommunityPartner("Boys and Girls Club", "Kathy Jones", "502-123-6789", "kathy@bgclub.org", "Education"),
             CommunityPartner("Earth and Spirit Center", "Bobby Hackett", "819-543-6543", "bobby@esc.org", "Environment"),
             CommunityPartner("Louisville Urban League", "Sadiqa Reynolds", "502-345-0190", "sadiqa@lul.org", "Social Services"),
-            CommunityPartner("Norton Healthcare", "Bob Ross", "502-123-0009", "bob@norton.org", "Health/Wellness")
+            CommunityPartner("Norton Healthcare", "Bob Ross", "502-123-0009", "bob@norton.org", "Health/Wellness"),
+            CommunityPartner("Nativity Academy", "Ebony O'Rea", "502-345-5678", "ebony@nativity.org", "Education"),
+            CommunityPartner("Metro Parks", "Tim Allen", "502-123-6789", "tallen@metrolou.org", "Environment"),
+            CommunityPartner("Thrive Center", "Rosy Smith", "502-675-0987", "rsmith@thrive.org", "Health/Wellness")
 ]
 
 issue_options = "Options: Education, Health/Wellness, Environment, Social Services"
 
 def create(org, contact, phone, email, issue):
     database.append(CommunityPartner(org, contact, phone, email, issue))
+    print("There are {} organizations in the Community Parnter Database.".format(len(database)))
+    command()
 
 def read_all():
-    for item in database:
-        print(item)
+    print(*database, sep = "\n")
+    # for item in range(len(database)):
+    #     print(database[item]) # This is not printing the actual names...just the location of the partners.
+    #     command()
+    # print(database)
+    # for item in database:
+        # print(CommunityPartner(org, contact, phone, email, issue))
+        # print(item) # This is not running through all of the items and printing them.
 
 def read_by_issue(issue):
     for item in database:
         if item.issue == issue:
-            print(item)
+            print(item.issue) # this prints the location of the org but not the org dictionary/class. i want to print all orgs associated with this issue.
+            command()
+            # print(CommunityPartner(org, contact, phone, email, issue)) # this doesn't work either
 
 def read_by_org(org):
     for i, item in zip(database):
         if item.org == org:
             return i
+            command()
         elif i == None:
-            print("That organization is not in the database.")
+            print("That organization is not in the database.") # this is not happening.
             command()
 
 def delete(org):
@@ -66,11 +80,13 @@ def command():
         issue = input("What is the Social Issue " + issue_options + ":  ")
         create(org, contact, phone, email, issue)
     if command == "read":
-        read_choice = input("Do you want to read all entries or sort by issue? Type 'all' or 'issue':  ")
+        read_choice = input("Do you want to read all entries or sort by or or issue? Type 'all' or 'org' or 'issue':  ")
         if read_choice == "all":
             read_all()
-        elif read_choice == "issue":
-            read_by_issue(input("What issue would you like to search?" + issue_options + ":  "))
+        if read_choice == "org":
+            read_by_org(input("What organization would you like to search?  "))
+        if read_choice == "issue":
+            read_by_issue(input("What issue would you like to search? " + issue_options + ":  "))
     if command == "update":
         org = input("What organization information would you like to update?  ")
         delete(org)
@@ -93,7 +109,7 @@ def command():
 if __name__ == "__main__":
     command()
     print("There are {} organizations in the Community Parnter Database.".format(len(database)))
-
+# After someone does one action in the CPDatabase, I want to ask them if they are done. If they want to do more, circle back to command. If they are done, type exit.
 
     # print("Education Organizations = {} \n".format(len(database(issue == "Education"))) + 
     #     "Health/Wellness Organizations = {} \n".format(len.database(issue == "Health/Wellness")) +
