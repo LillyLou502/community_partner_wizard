@@ -1,7 +1,9 @@
 # community_partner_wizard
 The community partner wizard is a database with community organization mission and contact information. The database allows users to create, read, update, and delete entries in a database. When using the read function, it also allows users to sort community partners by social issue topic. The program provides a total count of the number of community partners in the database.
 ## installation
-Run git clone https://github.com/LillyLou502/community_partner_wizard.git. Run python3 cp_database.py
+Run git clone https://github.com/LillyLou502/community_partner_wizard.git. 
+Run cd community_partner_wizard
+Run python3 cp_database.py
 ## features_list
 For this project, the features I chose to include are: 
 1) implement a master loop console application where the user can repeatedly enter commands/perform actions, including choosing to exit the program 
